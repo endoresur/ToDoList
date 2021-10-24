@@ -3,6 +3,7 @@ package com.example.todolist.entity;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "todo")
 public class TodoEntity {
 
     @Id
