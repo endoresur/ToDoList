@@ -15,5 +15,6 @@ create table user (
 create table todo (
     id bigint not null auto_increment,
     title varchar(64) not null,
-    completed boolean not null
+    completed boolean not null,
+    primary key (id)
 ) engine=MyISAM;
