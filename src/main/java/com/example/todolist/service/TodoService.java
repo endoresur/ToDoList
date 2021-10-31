@@ -7,6 +7,10 @@ import com.example.todolist.repository.TodoRepository;
 import com.example.todolist.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class TodoService {
@@ -15,6 +19,15 @@ public class TodoService {
     private TodoRepository todoRepository;
     @Autowired
     private UserRepository userRepository;
+
+    public List<Todo> getTodos() {
+        var todos = todoRepository.findAll();
+        var list = new ArrayList<Todo>();
+        for(var todo: todos){
+            list.add(Todo.toModel(todo));
+        }
+        return list;
+    }
 
     public Todo createTodo(TodoEntity todo, Long userId) {
         var user = userRepository.findById(userId).get();
