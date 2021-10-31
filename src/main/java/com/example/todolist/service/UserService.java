@@ -9,11 +9,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    public List<User> getUsers(){
+        var users = userRepository.findAll();
+        var list = new ArrayList<User>();
+        for(var user: users){
+            list.add(User.toModel(user));
+        }
+        return list;
+    }
 
     public UserEntity registration(UserEntity user) throws UserAlreadyExistException {
         if (userRepository.findByUsername(user.getUsername()) != null) {

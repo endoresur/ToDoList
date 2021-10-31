@@ -16,6 +16,15 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("/all")
+    public ResponseEntity getUsers(){
+        try {
+            return ResponseEntity.ok(userService.getUsers());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Ошибка");
+        }
+    }
+
     @GetMapping
     public ResponseEntity getOneUser(@RequestParam Long id) {
         try {
