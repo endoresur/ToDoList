@@ -18,11 +18,11 @@ public class TodoController {
     private TodoService todoService;
 
     @GetMapping
-    public ResponseEntity<List<Todo>> getTodos(){
+    public ResponseEntity getTodos(){
         try {
             return ResponseEntity.ok(todoService.getTodos());
         } catch (Exception e){
-            return null;
+            return ResponseEntity.badRequest().body("Произошла ошибка");
         }
     }
 
