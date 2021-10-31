@@ -47,6 +47,10 @@ public class UserEntity {
         return todos;
     }
 
+    public TodoEntity getTodo(Long todoId) {
+        return todos.stream().filter(a -> id.equals(todoId)).findFirst().get();
+    }
+
     public void setTodos(List<TodoEntity> todos) {
         this.todos = todos;
     }
