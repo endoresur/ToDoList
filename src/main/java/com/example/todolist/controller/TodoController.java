@@ -22,6 +22,24 @@ public class TodoController {
         }
     }
 
+    @PutMapping("/change_title")
+    public ResponseEntity changeTitle(@RequestParam Long todoId, @RequestParam String newTitle) {
+        try {
+            return ResponseEntity.ok(todoService.changeTitle(todoId, newTitle));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Произошла ошибка");
+        }
+    }
+
+    @PutMapping("/change_description")
+    public ResponseEntity changeDescription(@RequestParam Long todoId, @RequestParam String newDescription) {
+        try {
+            return ResponseEntity.ok(todoService.changeDescription(todoId, newDescription));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Произошла ошибка");
+        }
+    }
+
     @PutMapping
     public ResponseEntity completeTodo(@RequestParam Long id){
         try {

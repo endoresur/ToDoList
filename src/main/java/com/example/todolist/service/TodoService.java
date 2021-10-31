@@ -22,6 +22,22 @@ public class TodoService {
         return Todo.toModel(todoRepository.save(todo));
     }
 
+    public Todo changeTitle(Long todoId, String newTitle) {
+        var todo = todoRepository.findById(todoId).get();
+        if (newTitle != null && !newTitle.isEmpty()) {
+            todo.setTitle(newTitle);
+        }
+        return Todo.toModel(todoRepository.save(todo));
+    }
+
+    public Todo changeDescription(Long todoId, String newDescription){
+        var todo = todoRepository.findById(todoId).get();
+        if (newDescription != null && !newDescription.isEmpty()) {
+            todo.setDescription(newDescription);
+        }
+        return Todo.toModel(todoRepository.save(todo));
+    }
+
     public Todo completeTodo(Long userId) {
         var todo = todoRepository.findById(userId).get();
         todo.setCompleted(!todo.getCompleted());

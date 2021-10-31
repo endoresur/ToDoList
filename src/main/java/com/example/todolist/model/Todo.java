@@ -7,12 +7,14 @@ public class Todo {
     private Long id;
     private String title;
     private Boolean completed;
+    private String description;
 
     public static Todo toModel(TodoEntity entity) {
         var model = new Todo();
         model.setId(entity.getId());
         model.setTitle(entity.getTitle());
         model.setCompleted(entity.getCompleted());
+        model.setDescription(entity.getDescription());
         return model;
     }
 
@@ -41,5 +43,13 @@ public class Todo {
 
     public void setCompleted(Boolean completed) {
         this.completed = completed;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
