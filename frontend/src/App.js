@@ -1,15 +1,16 @@
 import logo from './logo.svg';
 import './App.css';
 import UserList from "./components/UserList";
-import MyNavbar from "./UI/MyNavbar";
+import Header from "./UI/Header";
+import Footer from "./UI/Footer";
 
 function App() {
     return (
         <div className="App">
-            <MyNavbar/>
+            <Header/>
             <UserList/>
+            <Footer/>
         </div>
-
     );
 }
 
