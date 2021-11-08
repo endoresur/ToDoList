@@ -14,14 +14,19 @@ class UserList extends React.Component {
 
     render() {
         const {todos} = this.state;
-        return(
-            <div>
-                <h2>Todo List</h2>
+        return (
+            <div className={"container m-5 w-75"}>
+                <h2>TODOS</h2>
                 {todos.map(todo =>
-                        <div key = {todo.id}>
-                            {todo.title} ({todo.description})
+                    <div className={"card m-3"}>
+                        <div className={"card-body"}>
+                            <div key={todo.id}>
+                                <h5 className="card-title">{todo.title}</h5>
+                                <p className="card-text">({todo.description})</p>
+                            </div>
                         </div>
-                    )}
+                    </div>
+                )}
             </div>
         )
     }
