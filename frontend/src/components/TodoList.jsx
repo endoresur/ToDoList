@@ -19,7 +19,7 @@ class TodoList extends React.Component {
             <div className={"container m-4 p-4"}>
                 <h2>Your tasks</h2>
                 {todos.map(todo =>
-                    <Card key={todo.id} style={{width: '50rem', margin: '20px'}}>
+                    <Card key={todo.id} style={{ margin: '20px'}}>
                         <Card.Header>{todo.title}</Card.Header>
                         <Card.Body>
                             <Card.Text>{todo.description}</Card.Text>
