@@ -19,7 +19,9 @@ class Header extends React.Component {
                             <Link to={"/about"}>About</Link>
                         </div>
                         <div className={"ms-auto p-1 w-25 flex-shrink-1"}>
-                            <Button className={"btn btn-primary p-2 m-2"} tag={Link}>Sign in</Button>
+                            <Link to={"/registration"}>
+                                <Button className={"btn btn-primary p-2 m-2"}>Sign in</Button>
+                            </Link>
                         </div>
                     </div>
                 </Nav>
