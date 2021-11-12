@@ -14,7 +14,7 @@ class Registration extends React.Component {
     render() {
         return (
             <div>
-                123
+                Registration page
             </div>
         );
     }
