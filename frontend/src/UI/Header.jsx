@@ -3,7 +3,6 @@ import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Navbar, Nav, Button} from "reactstrap";
 import {Link} from "react-router-dom";
-import {Container, Form, FormControl, NavDropdown} from "react-bootstrap";
 
 class Header extends React.Component {
 

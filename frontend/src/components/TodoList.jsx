@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Card, Col, Row} from "react-bootstrap";
+import {Button, Card} from "react-bootstrap";
 
 class TodoList extends React.Component {
     constructor(props) {
