@@ -6,19 +6,43 @@ import com.example.todolist.exceptions.UserNotFoundException;
 import com.example.todolist.model.User;
 import com.example.todolist.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    BCryptPasswordEncoder passwordEncoder;
+    @PersistenceContext
+    EntityManager entityManager;
 
-    public List<User> getUsers(){
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        var user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+        return (UserDetails) user;
+    }
+
+    public User findUserById(Long userId) {
+        Optional<UserEntity> userFromDb = userRepository.findById(userId);
+        return User.toModel(userFromDb.orElse(new UserEntity()));
+    }
+
+    public List<User> allUsers() {
         var users = userRepository.findAll();
         var list = new ArrayList<User>();
         for(var user: users){
@@ -27,23 +51,21 @@ public class UserService {
         return list;
     }
 
-    public UserEntity registration(UserEntity user) throws UserAlreadyExistException {
-        if (userRepository.findByUsername(user.getUsername()) != null) {
-            throw new UserAlreadyExistException("Пользователь с таким именем уже существует");
+    public Boolean saveUser(UserEntity user){
+        UserEntity userFromDb = userRepository.findByUsername(user.getUsername());
+        if (userFromDb != null) {
+            return false;
         }
-        return userRepository.save(user);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+        return true;
     }
 
-    public User getOne(Long id) throws UserNotFoundException {
-        var user = userRepository.findById(id).get();
-        if (user == null) {
-            throw new UserNotFoundException("Пользователь не найден");
+    public Boolean deleteUser(Long userId) {
+        if (userRepository.findById(userId).isPresent()) {
+            userRepository.deleteById(userId);
+            return true;
         }
-        return User.toModel(user);
-    }
-
-    public Long delete(Long id) {
-        userRepository.deleteById(id);
-        return id;
+        return false;
     }
 }
