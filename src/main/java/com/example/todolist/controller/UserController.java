@@ -1,7 +1,5 @@
 package com.example.todolist.controller;
 
-import com.example.todolist.entity.UserEntity;
-import com.example.todolist.exceptions.UserAlreadyExistException;
 import com.example.todolist.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
