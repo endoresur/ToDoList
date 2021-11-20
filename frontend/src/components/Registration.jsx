@@ -8,7 +8,7 @@ function Registration() {
     const [password, setPassword] = React.useState('');
 
     const addUser = () => {
-        fetch('/users/reg', {
+        fetch('/registration', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -23,19 +23,21 @@ function Registration() {
     }
 
     return (
-        <Form className="w-25">
-            <Container>
-                <label htmlFor='username'>Username</label>
-                <Input type='username' id='username' value={username}
-                       onChange={(e) => setUsername(e.target.value)} />
-            </Container>
-            <Container>
-                <label htmlFor='password'>Password</label>
-                <Input type='password' id='password' value={password}
-                       onChange={(e) => setPassword(e.target.value)} />
-            </Container>
-            <Button onClick={(e) => addUser()}>Log in</Button>
-        </Form>
+        <Container>
+            <Form className="w-25">
+                <Container>
+                    <label htmlFor='username'>Username</label>
+                    <Input type='username' id='username' value={username}
+                           onChange={(e) => setUsername(e.target.value)}/>
+                </Container>
+                <Container>
+                    <label htmlFor='password'>Password</label>
+                    <Input type='password' id='password' value={password}
+                           onChange={(e) => setPassword(e.target.value)}/>
+                </Container>
+                <Button onClick={(e) => addUser()}>Log in</Button>
+            </Form>
+        </Container>
     );
 }
 
