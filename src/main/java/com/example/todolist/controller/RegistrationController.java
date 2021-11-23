@@ -3,6 +3,8 @@ package com.example.todolist.controller;
 import com.example.todolist.entity.UserEntity;
 import com.example.todolist.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,11 +29,11 @@ public class RegistrationController {
 
     @PostMapping("/registration")
     public ResponseEntity addUser(@RequestParam UserEntity user) {
-        if (userService.saveUser(user)) {
-            return ResponseEntity.ok("Пользователь добавлен");
+        try {
+            return ResponseEntity.ok(userService.saveUser(user));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Ошибка");
         }
-        return ResponseEntity.badRequest().body("Ошибка");
-
     }
 
 }
