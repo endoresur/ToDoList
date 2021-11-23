@@ -7,17 +7,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
+@RequestMapping("/registration")
 public class RegistrationController {
 
     @Autowired
     private UserService userService;
 
-    @GetMapping("/registration")
+    @GetMapping
     public ResponseEntity registration() {
         try {
             UserEntity user = new UserEntity();
@@ -27,8 +26,8 @@ public class RegistrationController {
         }
     }
 
-    @PostMapping("/registration")
-    public ResponseEntity addUser(@RequestParam UserEntity user) {
+    @PostMapping
+    public ResponseEntity addUser(@RequestBody UserEntity user) {
         try {
             return ResponseEntity.ok(userService.saveUser(user));
         } catch (Exception e) {
