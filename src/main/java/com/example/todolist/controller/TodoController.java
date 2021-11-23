@@ -1,14 +1,11 @@
 package com.example.todolist.controller;
 
 import com.example.todolist.entity.TodoEntity;
-import com.example.todolist.exceptions.TodoNotFoundException;
-import com.example.todolist.model.Todo;
 import com.example.todolist.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("/todos")
