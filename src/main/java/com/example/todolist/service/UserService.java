@@ -51,14 +51,13 @@ public class UserService implements UserDetailsService {
         return list;
     }
 
-    public Boolean saveUser(UserEntity user){
-        UserEntity userFromDb = userRepository.findByUsername(user.getUsername());
-        if (userFromDb != null) {
-            return false;
+    public UserEntity saveUser(UserEntity user) throws UserAlreadyExistException {
+        var name = user.getUsername();
+        if (userRepository.findByUsername(name) != null) {
+            throw new UserAlreadyExistException("Пользователь с таким именем сущесвтвует");
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
-        return true;
+        return userRepository.save(user);
     }
 
     public Boolean deleteUser(Long userId) {
