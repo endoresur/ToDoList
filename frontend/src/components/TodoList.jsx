@@ -1,5 +1,7 @@
 import React from "react";
 import {Button, Card} from "react-bootstrap";
+import {Container} from "reactstrap";
+import {Link} from "react-router-dom";
 
 class TodoList extends React.Component {
     constructor(props) {
@@ -16,10 +18,23 @@ class TodoList extends React.Component {
     render() {
         const {todos} = this.state;
         return (
-            <div className={"container m-4 p-4"}>
-                <h2>Your tasks</h2>
+            <Container className={"m-4 p-4"}>
+                <Container>
+                    <div className="row row-cols-2">
+                        <div className="col">
+                            <h2>Your tasks</h2>
+                        </div>
+                        <div className="col">
+                            <Link to="/todo-create">
+                                <button type="button" className="w-50 btn btn-lg btn-outline-primary">
+                                    Create task
+                                </button>
+                            </Link>
+                        </div>
+                    </div>
+                </Container>
                 {todos.map(todo =>
-                    <Card key={todo.id} style={{ margin: '20px'}}>
+                    <Card key={todo.id} style={{margin: '20px'}}>
                         <Card.Header>{todo.title}</Card.Header>
                         <Card.Body>
                             <Card.Text>{todo.description}</Card.Text>
@@ -27,7 +42,7 @@ class TodoList extends React.Component {
                         </Card.Body>
                     </Card>
                 )}
-            </div>
+            </Container>
         )
     }
 }

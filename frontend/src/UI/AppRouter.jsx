@@ -5,6 +5,7 @@ import About from "../pages/About";
 import TodoList from "../components/TodoList";
 import Error from "../pages/Error";
 import Registration from "../components/Registration";
+import TodoCreate from "../components/TodoCreate";
 
 const AppRouter = () => {
     return (
@@ -14,6 +15,8 @@ const AppRouter = () => {
             <Route path="/todos" component={TodoList}/>
             <Route path="/error" component={Error}/>
             <Route path="/registration" component={Registration}/>
+            <Route path="/todo-create" component={TodoCreate}/>
+
             <Redirect from="/" to="/main"/>
             <Redirect to="/error"/>
         </Switch>
