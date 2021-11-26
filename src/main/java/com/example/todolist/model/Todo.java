@@ -13,8 +13,8 @@ public class Todo {
         var model = new Todo();
         model.setId(entity.getId());
         model.setTitle(entity.getTitle());
-        model.setCompleted(entity.getCompleted());
         model.setDescription(entity.getDescription());
+        model.setCompleted(entity.getCompleted());
         return model;
     }
 
