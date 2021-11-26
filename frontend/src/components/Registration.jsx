@@ -2,7 +2,7 @@ import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Form, Input, Container, Button} from "reactstrap";
 
-function Registration() {
+const Registration = () => {
 
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
@@ -24,7 +24,7 @@ function Registration() {
 
     return (
         <Container>
-            <Form className="w-25">
+            <Form className="w-25" method="post">
                 <Container>
                     <label htmlFor='username'>Username</label>
                     <Input type='username' id='username' value={username}
