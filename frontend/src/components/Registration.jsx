@@ -1,44 +1,43 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Form, Input, Container, Button} from "reactstrap";
+import {Form, Container} from "reactstrap";
 
-const Registration = () => {
+class Registration extends React.Component {
 
-    const [username, setUsername] = React.useState('');
-    const [password, setPassword] = React.useState('');
-
-    const addUser = () => {
-        fetch('/registration', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                username: username,
-                password: password
-            }),
-        })
-            .then((res) => res.json())
-            .catch((err) => console.log('error'))
+    constructor(props) {
+        super(props);
     }
 
-    return (
-        <Container>
-            <Form className="w-25" method="post">
-                <Container>
-                    <label htmlFor='username'>Username</label>
-                    <Input type='username' id='username' value={username}
-                           onChange={(e) => setUsername(e.target.value)}/>
+    render() {
+        return (
+            <div className="text-center">
+                <Container className="align-content-center mt-5">
+                    <Form className="mx-auto w-25">
+                        <h1 className="h2 mb-3 fw-normal">Please sign in</h1>
+
+                        <div className="form-floating">
+                            <input type="email" className="form-control" id="floatingInput"
+                                   placeholder="name@example.com"/>
+                            <label htmlFor="floatingInput">Email address</label>
+                        </div>
+                        <div className="form-floating">
+                            <input type="password" className="form-control" id="floatingPassword"
+                                   placeholder="Password"/>
+                            <label htmlFor="floatingPassword">Password</label>
+                        </div>
+
+                        <div className="checkbox mb-3">
+                            <label>
+                                <input type="checkbox" value="remember-me"/> Remember me
+                            </label>
+                        </div>
+                        <button className="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+                        <p className="mt-5 mb-3 text-muted">© ImportantTasks</p>
+                    </Form>
                 </Container>
-                <Container>
-                    <label htmlFor='password'>Password</label>
-                    <Input type='password' id='password' value={password}
-                           onChange={(e) => setPassword(e.target.value)}/>
-                </Container>
-                <Button onClick={(e) => addUser()}>Log in</Button>
-            </Form>
-        </Container>
-    );
+            </div>
+        );
+    }
 }
 
 export default Registration;
