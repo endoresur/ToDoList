@@ -6,23 +6,75 @@ class Registration extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            username: "",
+            password: ""
+        }
+
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleInputChange(event) {
+        const target = event.target;
+        const name = target.name;
+        const value = target.value;
+
+        this.setState({[name]: value});
+    }
+
+    handleSubmit(event) {
+        console.log(this.state);
+        event.preventDefault();
+
+        fetch('/registration', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: this.state.username,
+                password: this.state.password
+            })
+        })
+            .then((response) => response.json())
+            .then((json) => {
+                console.log(json);
+                return json;
+            })
     }
 
     render() {
         return (
             <div className="text-center">
                 <Container className="align-content-center mt-5">
-                    <Form className="mx-auto w-25">
-                        <h1 className="h2 mb-3 fw-normal">Please sign in</h1>
+                    <Form className="mx-auto w-25" onSubmit={this.handleSubmit}>
+                        <h1 className="h2 mb-3 fw-normal">Please sign up</h1>
 
                         <div className="form-floating">
-                            <input type="email" className="form-control" id="floatingInput"
-                                   placeholder="name@example.com"/>
-                            <label htmlFor="floatingInput">Email address</label>
+                            <input
+                                type="username"
+                                name="username"
+                                className="form-control"
+                                id="floatingInput"
+                                placeholder="Username"
+                                value={this.state.username}
+                                onChange={this.handleInputChange}
+                            />
+                            <label htmlFor="floatingInput">Username</label>
                         </div>
+
                         <div className="form-floating">
-                            <input type="password" className="form-control" id="floatingPassword"
-                                   placeholder="Password"/>
+                            <input
+                                type="password"
+                                name="password"
+                                className="form-control"
+                                id="floatingPassword"
+                                placeholder="Password"
+                                value={this.state.password}
+                                onChange={this.handleInputChange}
+                            />
                             <label htmlFor="floatingPassword">Password</label>
                         </div>
 
@@ -31,7 +83,7 @@ class Registration extends React.Component {
                                 <input type="checkbox" value="remember-me"/> Remember me
                             </label>
                         </div>
-                        <button className="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+                        <button className="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>
                         <p className="mt-5 mb-3 text-muted">© ImportantTasks</p>
                     </Form>
                 </Container>
