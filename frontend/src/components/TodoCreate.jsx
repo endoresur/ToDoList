@@ -6,8 +6,9 @@ class TodoCreate extends React.Component {
         super(props);
         this.state = {
             userId: "",
-            newTitle: "",
-            newDescription: ""
+            title: "",
+            description: "",
+            completed: false
         };
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -23,8 +24,26 @@ class TodoCreate extends React.Component {
     }
 
     handleSubmit(event) {
-        alert(this.state.userId + " " + this.state.newTitle + " " + this.state.newDescription);
+        console.log(this.state);
         event.preventDefault();
+
+        fetch('/todos?userId=' + this.state.userId, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                title: this.state.title,
+                description: this.state.description,
+                completed: this.state.completed
+            })
+        })
+            .then((response) => response.json())
+            .then((json) => {
+                console.log(json);
+                return json;
+            })
     }
 
     render() {
@@ -36,22 +55,34 @@ class TodoCreate extends React.Component {
 
                         <label>Временная необходимость</label>
                         <div className="form-floating mb-2">
-                            <input className="form-control bg-secondary" placeholder="User ID"
-                                type="text" name="userId"
-                                   value={this.state.userId} onChange={this.handleInputChange}/>
+                            <input
+                                className="form-control bg-secondary"
+                                placeholder="User ID"
+                                type="text"
+                                name="userId"
+                                value={this.state.userId}
+                                onChange={this.handleInputChange}/>
                             <label htmlFor="floatingUserId">User ID</label>
                         </div>
 
                         <div className="form-floating mb-2">
-                            <input className="form-control" placeholder="Title"
-                                type="text" name="newTitle"
-                                   value={this.state.newTitle} onChange={this.handleInputChange}/>
+                            <input
+                                className="form-control"
+                                placeholder="Title"
+                                type="text"
+                                name="title"
+                                value={this.state.title}
+                                onChange={this.handleInputChange}/>
                             <label htmlFor="floatingTitle">Title</label>
                         </div>
+
                         <div className="form-floating mb-2">
-                            <textarea className="form-control" placeholder="Description"
-                                name="newDescription"
-                                      value={this.state.newDescription} onChange={this.handleInputChange}/>
+                            <textarea
+                                className="form-control"
+                                placeholder="Description"
+                                name="description"
+                                value={this.state.description}
+                                onChange={this.handleInputChange}/>
                             <label htmlFor="floatingDescription">Description</label>
                         </div>
 
