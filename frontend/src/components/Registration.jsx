@@ -1,6 +1,7 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Form, Container} from "reactstrap";
+import {Redirect} from "react-router-dom";
 
 class Registration extends React.Component {
 
@@ -8,7 +9,8 @@ class Registration extends React.Component {
         super(props);
         this.state = {
             username: "",
-            password: ""
+            password: "",
+            success: false
         }
 
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -43,52 +45,60 @@ class Registration extends React.Component {
                 console.log(json);
                 return json;
             })
+
+        this.setState({success: true});
     }
 
     render() {
-        return (
-            <div className="text-center">
-                <Container className="align-content-center mt-5">
-                    <Form className="mx-auto w-25" onSubmit={this.handleSubmit}>
-                        <h1 className="h2 mb-3 fw-normal">Please sign up</h1>
+        const success = this.state.success;
+        if(success) {
+            return (<Redirect to="/main"/>);
+        }
+        else {
+            return (
+                <div className="text-center">
+                    <Container className="align-content-center mt-5">
+                        <Form className="mx-auto w-25" onSubmit={this.handleSubmit}>
+                            <h1 className="h2 mb-3 fw-normal">Please sign up</h1>
 
-                        <div className="form-floating">
-                            <input
-                                type="username"
-                                name="username"
-                                className="form-control"
-                                id="floatingInput"
-                                placeholder="Username"
-                                value={this.state.username}
-                                onChange={this.handleInputChange}
-                            />
-                            <label htmlFor="floatingInput">Username</label>
-                        </div>
+                            <div className="form-floating">
+                                <input
+                                    type="username"
+                                    name="username"
+                                    className="form-control"
+                                    id="floatingInput"
+                                    placeholder="Username"
+                                    value={this.state.username}
+                                    onChange={this.handleInputChange}
+                                />
+                                <label htmlFor="floatingInput">Username</label>
+                            </div>
 
-                        <div className="form-floating">
-                            <input
-                                type="password"
-                                name="password"
-                                className="form-control"
-                                id="floatingPassword"
-                                placeholder="Password"
-                                value={this.state.password}
-                                onChange={this.handleInputChange}
-                            />
-                            <label htmlFor="floatingPassword">Password</label>
-                        </div>
+                            <div className="form-floating">
+                                <input
+                                    type="password"
+                                    name="password"
+                                    className="form-control"
+                                    id="floatingPassword"
+                                    placeholder="Password"
+                                    value={this.state.password}
+                                    onChange={this.handleInputChange}
+                                />
+                                <label htmlFor="floatingPassword">Password</label>
+                            </div>
 
-                        <div className="checkbox mb-3">
-                            <label>
-                                <input type="checkbox" value="remember-me"/> Remember me
-                            </label>
-                        </div>
-                        <button className="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>
-                        <p className="mt-5 mb-3 text-muted">© ImportantTasks</p>
-                    </Form>
-                </Container>
-            </div>
-        );
+                            <div className="checkbox mb-3">
+                                <label>
+                                    <input type="checkbox" value="remember-me"/> Remember me
+                                </label>
+                            </div>
+                            <button className="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>
+                            <p className="mt-5 mb-3 text-muted">© ImportantTasks</p>
+                        </Form>
+                    </Container>
+                </div>
+            )
+        }
     }
 }
 
