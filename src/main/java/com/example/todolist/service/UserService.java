@@ -37,6 +37,14 @@ public class UserService implements UserDetailsService {
         return (UserDetails) user;
     }
 
+    public UserEntity findByUsername(String username) {
+        var user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+        return user;
+    }
+
     public User findUserById(Long userId) {
         Optional<UserEntity> userFromDb = userRepository.findById(userId);
         return User.toModel(userFromDb.orElse(new UserEntity()));

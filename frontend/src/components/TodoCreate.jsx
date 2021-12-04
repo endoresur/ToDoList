@@ -5,7 +5,7 @@ class TodoCreate extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            userId: "",
+            username: "",
             title: "",
             description: "",
             completed: false
@@ -27,7 +27,7 @@ class TodoCreate extends React.Component {
         console.log(this.state);
         event.preventDefault();
 
-        fetch('/todos?userId=' + this.state.userId, {
+        fetch('/todos/createByName?userName=' + this.state.username, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -53,16 +53,15 @@ class TodoCreate extends React.Component {
                     <Form className="mx-auto w-50" onSubmit={this.handleSubmit}>
                         <h1 className="h2 mb-3 fw-normal">Create new task</h1>
 
-                        <label>Временная необходимость</label>
                         <div className="form-floating mb-2">
                             <input
-                                className="form-control bg-secondary"
-                                placeholder="User ID"
+                                className="form-control"
+                                placeholder="Username"
                                 type="text"
-                                name="userId"
-                                value={this.state.userId}
+                                name="username"
+                                value={this.state.username}
                                 onChange={this.handleInputChange}/>
-                            <label htmlFor="floatingUserId">User ID</label>
+                            <label htmlFor="floatingUserId">Username</label>
                         </div>
 
                         <div className="form-floating mb-2">

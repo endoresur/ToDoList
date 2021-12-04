@@ -1,7 +1,9 @@
 package com.example.todolist.controller;
 
 import com.example.todolist.entity.TodoEntity;
+import com.example.todolist.model.User;
 import com.example.todolist.service.TodoService;
+import com.example.todolist.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,8 @@ public class TodoController {
 
     @Autowired
     private TodoService todoService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping
     public ResponseEntity getTodos(){
@@ -23,7 +27,7 @@ public class TodoController {
         }
     }
 
-    @PostMapping
+    @PostMapping("/createById")
     public ResponseEntity createTodo(@RequestBody TodoEntity todo, @RequestParam Long userId) {
         try {
             return ResponseEntity.ok(todoService.createTodo(todo, userId));
@@ -31,6 +35,13 @@ public class TodoController {
             return ResponseEntity.badRequest().body("Произошла ошибка");
         }
     }
+
+    @PostMapping("/createByName")
+    public ResponseEntity createTodo(@RequestBody TodoEntity todo, @RequestParam String userName) {
+        var user = User.toModel(userService.findByUsername(userName));
+        return createTodo(todo, user.getId());
+    }
+
 
     @PutMapping("/change_title")
     public ResponseEntity changeTitle(@RequestParam Long todoId, @RequestParam String newTitle) {
