@@ -61,7 +61,7 @@ public class TodoController {
         }
     }
 
-    @PutMapping
+    @PutMapping("/complete")
     public ResponseEntity completeTodo(@RequestParam Long id){
         try {
             return ResponseEntity.ok(todoService.completeTodo(id));

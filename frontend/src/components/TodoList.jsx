@@ -1,5 +1,3 @@
-import logo from "../logo.svg";
-
 import React from "react";
 import {Button, Card} from "react-bootstrap";
 import {Container} from "reactstrap";
@@ -9,12 +7,30 @@ class TodoList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {todos: []};
+
+        this.handleClick = this.handleClick.bind(this);
     }
 
     async componentDidMount() {
         const response = await fetch('/todos');
         const body = await response.json();
         this.setState({todos: body});
+    }
+
+    handleClick(todo, e) {
+        console.log(todo.username);
+        e.preventDefault();
+
+        fetch('/todos/complete?id=' + todo.id, {
+            method: 'PUT',
+        })
+            .then((response) => response.json())
+            .then((json) => {
+                console.log(json);
+                return json;
+            });
+
+        this.setState({});
     }
 
     render() {
@@ -46,8 +62,13 @@ class TodoList extends React.Component {
                                 Author: {todo.username}
                             </Card.Header>
                             <Card.Body>
-                                <Card.Text>{todo.description}</Card.Text>
-                                <Button variant="primary">Go somewhere</Button>
+                                <Card.Text>
+                                    {todo.description}
+                                    {todo.complete}
+                                </Card.Text>
+                                <Button
+                                    variant="primary"
+                                    onClick={(e) => this.handleClick(todo, e)}>Done?</Button>
                             </Card.Body>
                         </Card>
                     )}
