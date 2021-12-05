@@ -2,7 +2,7 @@ import React from 'react';
 import {Container, Form} from "reactstrap";
 import {Redirect} from "react-router-dom";
 
-class TodoCreate extends React.Component {
+class TaskCreate extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
@@ -26,7 +26,6 @@ class TodoCreate extends React.Component {
     }
 
     handleSubmit(event) {
-        console.log(this.state);
         event.preventDefault();
 
         fetch('/todos/createByName?userName=' + this.state.username, {
@@ -105,4 +104,4 @@ class TodoCreate extends React.Component {
 
 }
 
-export default TodoCreate;
+export default TaskCreate;

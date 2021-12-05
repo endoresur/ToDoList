@@ -2,20 +2,20 @@ import React from 'react';
 import {Redirect, Route, Switch} from "react-router-dom";
 import Main from "../pages/Main";
 import About from "../pages/About";
-import TodoList from "../components/TodoList";
 import Error from "../pages/Error";
 import Registration from "../components/Registration";
-import TodoCreate from "../components/TodoCreate";
+import TaskCreate from "../components/TaskCreate";
+import Tasks from "../pages/Tasks";
 
 const AppRouter = () => {
     return (
         <Switch>
             <Route path="/main" component={Main}/>
             <Route path="/about" component={About}/>
-            <Route path="/todos" component={TodoList}/>
+            <Route path="/tasks" component={Tasks}/>
             <Route path="/error" component={Error}/>
             <Route path="/registration" component={Registration}/>
-            <Route path="/todo-create" component={TodoCreate}/>
+            <Route path="/todo-create" component={TaskCreate}/>
 
             <Redirect from="/" to="/main"/>
             <Redirect to="/error"/>
