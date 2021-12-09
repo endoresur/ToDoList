@@ -44,11 +44,12 @@ class TaskList extends React.Component {
                         <Card.Body>
                             <Card.Text>
                                 {todo.description}
-                                {todo.complete}
                             </Card.Text>
                             <Button
                                 variant="primary"
-                                onClick={(e) => this.handleClick(todo, e)}>Done?</Button>
+                                onClick={(e) => this.handleClick(todo, e)}>
+                                Done?
+                            </Button>
                         </Card.Body>
                     </Card>
                 )}

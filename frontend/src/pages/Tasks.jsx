@@ -6,9 +6,7 @@ import TaskList from "../components/TaskList";
 const Tasks = () => {
 
     return (
-        <Container className={"m-4 p-4"}>
-            <div className="container">
-
+        <Container className="w-75">
                 <Container className="row g-4 py-5 row-cols-1 row-cols-lg-3 pb-2 border-bottom">
                     <div className="feature col">
                         <h2 className="">Active tasks</h2>
@@ -23,11 +21,8 @@ const Tasks = () => {
                     </div>
                 </Container>
                 <TaskList/>
-            </div>
         </Container>
     );
-
-
 };
 
 export default Tasks;
