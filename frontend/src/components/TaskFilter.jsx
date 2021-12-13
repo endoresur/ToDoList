@@ -21,9 +21,9 @@ const TaskFilter = () => {
                     className="form-select"
                     value={completedOption}
                     onChange={handleChange}>
-                    <option value="any">Any</option>
                     <option value="unfinished">Unfinished</option>
                     <option value="completed">Completed</option>
+                    <option value="any">Any</option>
                 </select>
                 <div className="invalid-feedback">
                     Please select a valid variant of progress.

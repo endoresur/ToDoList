@@ -1,5 +1,6 @@
 import React from "react";
 import {Button, Card} from "react-bootstrap";
+import TaskFilter from "./TaskFilter";
 
 class TaskList extends React.Component {
     constructor(props) {
@@ -13,11 +14,11 @@ class TaskList extends React.Component {
         this.setState({todos: body});
     }
 
-    handleClick(todo, e) {
-        console.log(todo.username);
+    handleClick(task, e) {
+        console.log(task.username);
         e.preventDefault();
 
-        fetch('/todos/complete?id=' + todo.id, {
+        fetch('/todos/complete?id=' + task.id, {
             method: 'PUT',
         })
             .then((response) => response.json())
@@ -25,29 +26,32 @@ class TaskList extends React.Component {
                 console.log(json);
                 return json;
             });
-
-        this.setState({});
     }
 
     render() {
         const {todos} = this.state;
+        const tasks = todos.reverse().filter(function (task) {
+            return task.completed === false;
+        });
+
         return (
-            <div>
-                {todos.reverse().map(todo =>
+            <div className="w-100">
+                <TaskFilter/>
+                {tasks.map(task =>
                     <Card
-                        key={todo.id}
+                        key={task.id}
                         style={{margin: '20px'}}>
                         <Card.Header>
-                            <h3>{todo.title}</h3>
-                            Author: {todo.username}
+                            <h3>{task.title}</h3>
+                            Author: {task.username}
                         </Card.Header>
                         <Card.Body>
                             <Card.Text>
-                                {todo.description}
+                                {task.description}
                             </Card.Text>
                             <Button
                                 variant="primary"
-                                onClick={(e) => this.handleClick(todo, e)}>
+                                onClick={(e) => this.handleClick(task, e)}>
                                 Done?
                             </Button>
                         </Card.Body>
